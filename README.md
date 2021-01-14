@@ -8,17 +8,17 @@
 2. nodemon src/index.js OR node src/index.js
 ```
 
-### CURL
+** CURL
 
+## GET TOKEN
 ```sh
-GET TOKEN
 curl --location --request POST 'http://localhost:5000/auth-token/api/v1/getToken' \
 --header 'Content-Type: application/json' \
 --data-raw '{
 	"apiKey":"BYsCFqsFGdmSuVJmrLMav5FxB3dtsctUBSU4Qw72QPJ3dvKbwU"
 }'
 ```
-### VALIDATE TOKEN
+## VALIDATE TOKEN
 
 ```sh
 curl --location --request GET 'http://localhost:5000/auth-token/api/v1/validateToken' \
