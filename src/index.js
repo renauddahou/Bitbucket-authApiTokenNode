@@ -19,6 +19,5 @@ async function main(){
         throw new Error("Internal Server Error");
     }
 }
-
 main();
 
