@@ -11,7 +11,7 @@ pipelines:
             # Compilamos la imagen docker con el nombre de la imagen
             - docker build -t $IMAGE_NAME .
             # Nos logeamos a Azure CR
-            - docker login pentabrasildevqa.azurecr.io --username $AZURE_USER_REGISTRY_DESA_QA_BRA --password $AZURE_PASSWORD_REGISTRY_DESA_QA_BRA
+            - docker login NOMBREDOCKER.azurecr.io --username $AZURE_USER_REGISTRY_DESA_QA_BRA --password $AZURE_PASSWORD_REGISTRY_DESA_QA_BRA
             # Enviamos la imagen recién construida a Azure CR
             - docker push $IMAGE_NAME
           services:
@@ -37,7 +37,7 @@ pipelines:
                 AZURE_PASSWORD: $AZURE_DEV_QA_PASSWORD
                 AZURE_TENANT_ID: $AZURE_DEV_QA_TENANT_ID
                 AZURE_AKS_NAME: 'dev-aks'
-                AZURE_RESOURCE_GROUP: 'RG-vnet-penta-desa'
+                AZURE_RESOURCE_GROUP: 'RG-vnet-NOMBREDOCKER-desa'
                 KUBECTL_COMMAND: 'apply'
                 KUBECTL_ARGUMENTS: '-f k8s'
     qa:
@@ -49,7 +49,7 @@ pipelines:
             # Compilamos la imagen docker con el nombre de la imagen
             - docker build -t $IMAGE_NAME .
             # Nos logeamos a Azure CR
-            - docker login pentabrasildevqa.azurecr.io --username $AZURE_USER_REGISTRY_DESA_QA_BRA --password $AZURE_PASSWORD_REGISTRY_DESA_QA_BRA
+            - docker login NOMBREDOCKER.azurecr.io --username $AZURE_USER_REGISTRY_DESA_QA_BRA --password $AZURE_PASSWORD_REGISTRY_DESA_QA_BRA
             # Enviamos la imagen recién construida a Azure CR
             - docker push $IMAGE_NAME
           services:
@@ -83,11 +83,11 @@ pipelines:
           name: Build
           script:
             # Seteamos el nombre que tendrá la imagen
-            - export IMAGE_NAME=pentabrasilprod.azurecr.io/$APPLICATION_NAME:v$BITBUCKET_BUILD_NUMBER
+            - export IMAGE_NAME=NOMBREDOCKER.azurecr.io/$APPLICATION_NAME:v$BITBUCKET_BUILD_NUMBER
             # Compilamos la imagen docker con el nombre de la imagen
             - docker build -t $IMAGE_NAME .
             # Nos logeamos a Azure CR
-            - docker login pentabrasilprod.azurecr.io --username $AZURE_USER_REGISTRY_PROD_BRA --password $AZURE_PASSWORD_REGISTRY_PROD_BRA
+            - docker login NOMBREDOCKER.azurecr.io --username $AZURE_USER_REGISTRY_PROD_BRA --password $AZURE_PASSWORD_REGISTRY_PROD_BRA
             # Enviamos la imagen recién construida a Azure CR
             - docker push $IMAGE_NAME
           services:
@@ -100,7 +100,7 @@ pipelines:
             # Seteamos la versión de la nueva imagen en nuestro deployment.yml
             #- sed -i 's/latest/v$BITBUCKET_BUILD_NUMBER/g' k8s/deployment.yaml
             - sed -i "s|latest|v$BITBUCKET_BUILD_NUMBER|g" k8s/deployment.yaml
-            - sed -i "s|pentabrasildevqa|pentabrasilprod|g" k8s/deployment.yaml
+            - sed -i "s|NOMBREDOCKER|NOMBREDOCKER|g" k8s/deployment.yaml
             # Se aplica el deploy de todo el directorio k8s.
             - pipe: microsoft/azure-aks-deploy:1.0.1
               variables:
@@ -108,6 +108,6 @@ pipelines:
                 AZURE_PASSWORD: $AZURE_PROD_PASSWORD
                 AZURE_TENANT_ID: $AZURE_DEV_QA_TENANT_ID
                 AZURE_AKS_NAME: 'prod-aks'
-                AZURE_RESOURCE_GROUP: 'RG-vnet-penta-front'
+                AZURE_RESOURCE_GROUP: 'RG-vnet-NOMBREDOCKER-front'
                 KUBECTL_COMMAND: 'apply'
                 KUBECTL_ARGUMENTS: '-f k8s'

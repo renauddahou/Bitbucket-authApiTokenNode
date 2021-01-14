@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: appName
-          image: pentabrasildevqa.azurecr.io/appName:latest
+          image: NOMBREDOCKER.azurecr.io/appName:latest
           ports:
             - containerPort: containerPortVar
           resources:
@@ -33,4 +33,4 @@ spec:
           - secretRef:
               name: cluster-secret
       imagePullSecrets:
-        - name: pentaregistry
+        - name: NOMBREDOCKERregistry
