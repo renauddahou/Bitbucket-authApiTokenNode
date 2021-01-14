@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const AuthController = require('../controller/AuthController');
 const router = Router();
-const baseUrl = `/service/${process.env.VERSION_APP}/${process.env.APP_PATH_SERVICE}`;
+const baseUrl = `/api/${process.env.VERSION_APP}/${process.env.APP_PATH_SERVICE}`;
 const routes = [];
 
 router.post('/getToken', AuthController.getToken);
