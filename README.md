@@ -10,7 +10,7 @@
 
 ** CURL
 
-## GET TOKEN
+**GET TOKEN
 ```sh
 curl --location --request POST 'http://localhost:5000/auth-token/api/v1/getToken' \
 --header 'Content-Type: application/json' \
@@ -18,7 +18,7 @@ curl --location --request POST 'http://localhost:5000/auth-token/api/v1/getToken
 	"apiKey":"BYsCFqsFGdmSuVJmrLMav5FxB3dtsctUBSU4Qw72QPJ3dvKbwU"
 }'
 ```
-## VALIDATE TOKEN
+**VALIDATE TOKEN
 
 ```sh
 curl --location --request GET 'http://localhost:5000/auth-token/api/v1/validateToken' \
