@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: appName
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      ip-service: appName
+  template:
+    metadata:
+      labels:
+        ip-service: appName
+    spec:
+      containers:
+        - name: appName
+          image: pentabrasildevqa.azurecr.io/appName:latest
+          ports:
+            - containerPort: containerPortVar
+          resources:
+            requests:
+              cpu: 100m
+          env:
+            - name: APP_NAME
+              value: "appName"
+            - name: APP_PATH_SERVICE
+              value: "appPathService"
+            - name: VERSION_APP
+              value: "appVersion"
+            - name: PORT
+              value: "containerPortVar"
+          envFrom:
+          - secretRef:
+              name: cluster-secret
+      imagePullSecrets:
+        - name: pentaregistry
