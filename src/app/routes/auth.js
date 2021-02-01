@@ -1,10 +1,17 @@
 const { Router } = require('express');
 const AuthController = require('../controller/AuthController');
+const { Validator } = require('express-json-validator-middleware');
+const validator = new Validator({ allErrors: true });
+const validate = validator.validate;
+
 const router = Router();
 const baseUrl = `/api/${process.env.VERSION_APP}/${process.env.APP_PATH_SERVICE}`;
 const routes = [];
 
-router.post('/getToken', AuthController.getToken);
+/** Configuración de validación de datos */
+const AuthenticarReqSchema = require('../schemas/SwaggerComponents').components.schemas.Authenticar;
+
+router.post('/getToken',validate({ body: AuthenticarReqSchema }), AuthController.getToken);
 router.get('/validateToken', AuthController.validateToken);
 
 

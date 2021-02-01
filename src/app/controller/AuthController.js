@@ -8,6 +8,38 @@ const expireRefreshToken = process.env.REFRESH_TOKEN_LIFE;
 const key = process.env.API_KEY;
 
 module.exports = {
+
+    /**
+     * @swagger
+     * /auth-token/getToken:
+     *  get:
+     *    summary: Obtener Token.
+     *    description: Obtener Token.
+     *    tags:
+     *      - /auth-token/getToken
+     *    parameters:
+     *      - in: query
+     *        name: apiKey
+     *        schema:
+     *          type: string
+     *        description: Token
+     *        required: true
+     *    responses:
+     *      '200':
+     *        description: Acción ejecutada correctamente
+     *        content:
+     *          application/json:
+     *              schema:
+     *                  $ref: '#/components/schemas/Authenticar'
+     *      '500':
+     *        $ref: '#/components/responses/GenericError'
+     *      '401':
+     *        $ref: '#/components/responses/Unauthorized'
+     *      '403':
+     *        $ref: '#/components/responses/Forbidden'
+     *      '400':
+     *        $ref: '#/components/responses/BadRequest'
+     */
     getToken: async(req, res) => {
         try {
             let tokenList = {};
@@ -40,6 +72,7 @@ module.exports = {
         try {
             const token = req.body.token || req.query.token || req.headers['x-access-token']
                 // decode token
+                let response;
             if (token) {
                 // verifies secret and checks exp
                 jwt.verify(token, process.env.SECRET_TOKEN, function(err, decoded) {

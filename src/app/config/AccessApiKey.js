@@ -4,6 +4,7 @@ require('dotenv').config();
 
 module.exports = {
    generateTokenByOrigen: (key) => {
+       let response;
        switch (key) {
            case process.env.API_KEY:
                 response = {
